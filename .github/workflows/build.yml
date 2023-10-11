@@ -38,6 +38,10 @@ jobs:
       - name: Install coverlet.console
         run: dotnet tool install -g coverlet.console
 
+      - name: Test and Code Coverage
+        run: |
+          dotnet test ./Streetcode/Streetcode.XUnitTest/Streetcode.XUnitTest.csproj --configuration Release --no-build --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage /p:CollectCoverage=true /p:CoverletOutputFormat=opencover 
+
       - name: Install SonarScanner
         run: dotnet tool install --global dotnet-sonarscanner
 
@@ -47,9 +51,8 @@ jobs:
       - name: SonarScanner Analysis
         id: sonar
         run: |
-          dotnet sonarscanner begin /k:"petrobubka_StreetCode_sonar" /o:"petrobubka" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportPaths="./coverage/coverage.xml"
+          dotnet sonarscanner begin /k:"petrobubka_StreetCode_sonar" /o:"petrobubka" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportPaths="**/coverage.opencover.xml"
           dotnet build ./Streetcode/Streetcode.sln --configuration Release
-          dotnet test ./Streetcode/Streetcode.XUnitTest/Streetcode.XUnitTest.csproj --configuration Release --no-build --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=./coverage/coverage.xml
           dotnet sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
 
       - name: Publish Code Coverage Report
