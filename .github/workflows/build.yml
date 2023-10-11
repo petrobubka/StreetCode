@@ -53,6 +53,7 @@ jobs:
         run: |
           dotnet sonarscanner begin /k:"petrobubka_StreetCode_sonar" /o:"petrobubka" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportPaths="/Streetcode.XUnitTest/coverage.opencover.xml"
           dotnet build ./Streetcode/Streetcode.sln --configuration Release
+          dotnet test ./Streetcode/Streetcode.XUnitTest/Streetcode.XUnitTest.csproj --configuration Release --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover 
           dotnet sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
 
       - name: Publish Code Coverage Report
