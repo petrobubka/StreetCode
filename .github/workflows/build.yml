@@ -36,7 +36,10 @@ jobs:
         run: dotnet build ./Streetcode/Streetcode.sln --configuration Release --no-restore
 
       - name: Install coverlet.console
-        run: dotnet tool install -g coverlet.console
+        run: dotnet tool install --global dotnet-coverage
+
+      - name: Install dotnet-coverage
+        run: dotnet tool install --global dotnet-sonarscanner
 
       - name: Test and Code Coverage
         run: dotnet-coverage collect "dotnet test --configuration Release --results-directory ./coverage --logger trx" -f xml -o coverage.xml
