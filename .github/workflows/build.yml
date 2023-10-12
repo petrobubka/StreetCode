@@ -52,6 +52,8 @@ jobs:
         run: dotnet-coverage collect "dotnet test ./Streetcode/Streetcode.XUnitTest/Streetcode.XUnitTest.csproj --configuration Release --results-directory ./coverage --logger trx" -f xml -o coverage.xml
 
 
+
+
       - name: Set SonarCloud Token
         run: echo "SONAR_TOKEN=${{ secrets.SONAR_TOKEN }}" >> $GITHUB_ENV
 
@@ -62,6 +64,7 @@ jobs:
          dotnet build ./Streetcode/Streetcode.sln --configuration Release
          dotnet test ./Streetcode/Streetcode.XUnitTest/Streetcode.XUnitTest.csproj --configuration Release --no-build --verbosity normal
          dotnet sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+
 
       - name: Publish Code Coverage Report
         if: always()
