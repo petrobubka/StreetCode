@@ -45,15 +45,7 @@ jobs:
       - name: SonarScanner Analysis
         id: sonar
         run: |
-         dotnet sonarscanner begin /k:"petrobubka_StreetCode_sonar" /o:"petrobubka" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.vscoveragexml.reportsPaths="**/coverage.xml"
+         dotnet sonarscanner begin /k:"petrobubka_StreetCode_sonar" /o:"petrobubka" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.vscoveragexml.reportsPaths="**/coverage.xml"
          dotnet build ./Streetcode/Streetcode.sln --configuration Release
          dotnet test ./Streetcode/Streetcode.XUnitTest/Streetcode.XUnitTest.csproj --configuration Release --no-build --verbosity normal
-         dotnet sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
-
-      - name: Publish Code Coverage Report
-        if: always()
-        uses: actions/upload-artifact@v2
-        with:
-          name: Code Coverage Report
-          path: |
-            ./Streetcode/Streetcode.XUnitTest/coverage/coverage.xml
+         dotnet sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
