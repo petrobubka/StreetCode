@@ -11,7 +11,6 @@ using Streetcode.DAL.Repositories.Interfaces.Base;
 
 namespace Streetcode.BLL.MediatR.Media.Art.GetById;
 
-
 public class GetArtByIdHandler : IRequestHandler<GetArtByIdQuery, Result<ArtDTO>>
 {
     private readonly IMapper _mapper;
