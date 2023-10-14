@@ -23,7 +23,7 @@ namespace Streetcode.BLL.MediatR.Streetcode.RelatedTerm.Create
 
         public CreateRelatedTermHandler(
             IRepositoryWrapper repository,
-            IMapper mapper, 
+            IMapper mapper,
             ILoggerService logger,
             IStringLocalizer<CannotSaveSharedResource> stringLocalizerCannotSave,
             IStringLocalizer<CannotMapSharedResource> stringLocalizerCannotMap,
@@ -39,7 +39,7 @@ namespace Streetcode.BLL.MediatR.Streetcode.RelatedTerm.Create
             _stringLocalizerCannotCreate = stringLocalizerCannotCreate;
         }
 
-        public async Task<Result<RelatedTermDTO>> Handle(CreateRelatedTermCommand request,  CancellationToken cancellationToken)
+        public async Task<Result<RelatedTermDTO>> Handle(CreateRelatedTermCommand request, CancellationToken cancellationToken)
         {
             var relatedTerm = _mapper.Map<Entity>(request.RelatedTerm);
 
