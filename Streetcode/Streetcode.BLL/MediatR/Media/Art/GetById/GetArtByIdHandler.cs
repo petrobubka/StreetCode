@@ -32,7 +32,7 @@ public class GetArtByIdHandler : IRequestHandler<GetArtByIdQuery, Result<ArtDTO>
 
         if (art is null)
         {
-            string errorMsg = _stringLocalizerCannotFind["CannotFindAnyArtWithCorrespondingStreetcodeId", request.Id].Value;
+            string errorMsg = _stringLocalizerCannotFind["CannoFindAnyArtWithCorrespondingStreetcodeId", request.Id].Value;
             _logger.LogError(request, errorMsg);
             return Result.Fail(new Error(errorMsg));
         }
